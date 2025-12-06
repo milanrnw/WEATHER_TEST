@@ -20,7 +20,6 @@ class CustomSearchbar extends StatelessWidget {
           BoxShadow(
               blurRadius: blur,
               offset: distance,
-              //color: Colors.black,
               color: Colors.black.withValues(alpha: 0.80),
               inset: true),
           BoxShadow(

@@ -1,4 +1,4 @@
-import 'package:weathertest/models/forecast/temp_values_model.dart';
+import 'package:myweatherapp/models/forecast/temp_values_model.dart';
 
 class ForecastTempModel {
   final TempValuesModel minimum;
@@ -9,9 +9,12 @@ class ForecastTempModel {
     required this.maximum,
   });
 
-  factory ForecastTempModel.fromJson(Map<String, dynamic> json) => ForecastTempModel(
-        minimum: TempValuesModel.fromJson(json["Minimum"]),
-        maximum: TempValuesModel.fromJson(json["Maximum"]),
+  factory ForecastTempModel.fromJson(Map<String, dynamic> json) =>
+      ForecastTempModel(
+        minimum:
+            TempValuesModel.fromJson(json["Minimum"] as Map<String, dynamic>),
+        maximum:
+            TempValuesModel.fromJson(json["Maximum"] as Map<String, dynamic>),
       );
 
   Map<String, dynamic> toJson() => {

@@ -1,4 +1,4 @@
-import 'package:weathertest/models/temperature_model.dart';
+import 'package:myweatherapp/models/temperature_model.dart';
 
 class CurrentWeatherModel {
   final DateTime localObservationDateTime;
@@ -18,7 +18,8 @@ class CurrentWeatherModel {
         localObservationDateTime:
             DateTime.parse(json["LocalObservationDateTime"]),
         weatherText: json["WeatherText"],
-        temperature: TemperatureModel.fromJson(json["Temperature"]),
+        temperature: TemperatureModel.fromJson(
+            json["Temperature"] as Map<String, dynamic>),
         mobileLink: json["MobileLink"],
       );
 

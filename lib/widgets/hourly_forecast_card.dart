@@ -18,19 +18,18 @@ class HourlyForecastCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 60.w,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment:
-            MainAxisAlignment.center, // Center content vertically
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           if (iconPath != null)
             isLottie
                 ? Lottie.asset(iconPath!, width: 52, height: 40)
                 : Image.asset(iconPath!, width: 40, height: 40),
           if (iconPath == null) SizedBox(height: 40),
-          SizedBox(height: 8), // consistent spacing
+          SizedBox(height: 8),
           FittedBox(
             fit: BoxFit.scaleDown,
             child: Text(

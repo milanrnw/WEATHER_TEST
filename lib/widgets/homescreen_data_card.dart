@@ -14,11 +14,10 @@ class HomescreenDataCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Process API Data
     final temperatureData = fiveDaysForecast.list.map((item) {
-      DateTime date = DateTime.parse(item.dt_txt);
-      String timeLabel = DateFormat('h a').format(date); // e.g., 3 PM
-      String dayLabel = DateFormat('EEEE').format(date); // e.g., Monday
+      DateTime date = DateTime.parse(item.dtTxt);
+      String timeLabel = DateFormat('h a').format(date);
+      String dayLabel = DateFormat('EEEE').format(date);
       return {
         "value": "${item.main.temp.round()}°",
         "label": timeLabel,
@@ -28,7 +27,7 @@ class HomescreenDataCard extends StatelessWidget {
     }).toList();
 
     final windData = fiveDaysForecast.list.map((item) {
-      DateTime date = DateTime.parse(item.dt_txt);
+      DateTime date = DateTime.parse(item.dtTxt);
       String timeLabel = DateFormat('h a').format(date);
       String dayLabel = DateFormat('EEEE').format(date);
       return {
@@ -40,7 +39,7 @@ class HomescreenDataCard extends StatelessWidget {
     }).toList();
 
     final humidityData = fiveDaysForecast.list.map((item) {
-      DateTime date = DateTime.parse(item.dt_txt);
+      DateTime date = DateTime.parse(item.dtTxt);
       String timeLabel = DateFormat('h a').format(date);
       String dayLabel = DateFormat('EEEE').format(date);
       return {
@@ -83,7 +82,6 @@ class _DataPage extends StatefulWidget {
   final bool isLottie;
 
   const _DataPage({
-    super.key,
     required this.category,
     required this.data,
     required this.isLottie,
@@ -111,7 +109,6 @@ class _DataPageState extends State<_DataPage> {
   }
 
   void _onScroll() {
-    // Calculate index based on item width (60.w) + padding (8)
     double itemWidth = 60.w + 8;
     int index = (_scrollController.offset / itemWidth).round();
 

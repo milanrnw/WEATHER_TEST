@@ -1,12 +1,8 @@
-// To parse this JSON data, do
-//
-//     final currentConditionModel = currentConditionModelFromJson(jsonString);
-
 import 'dart:convert';
 
 import 'package:myweatherapp/models/country_code_model.dart';
-import 'package:myweatherapp/models/tempMainModel.dart';
-import 'package:myweatherapp/models/weatherMainModel.dart';
+import 'package:myweatherapp/models/temp_main_model.dart';
+import 'package:myweatherapp/models/weather_main_model.dart';
 import 'package:myweatherapp/models/wind_model.dart';
 
 CurrentConditionModel currentConditionModelFromJson(String str) =>

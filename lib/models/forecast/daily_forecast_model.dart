@@ -1,4 +1,4 @@
-import 'package:weathertest/models/forecast/forecast_temp_model.dart';
+import 'package:myweatherapp/models/forecast/forecast_temp_model.dart';
 
 class DailyForecast {
   final ForecastTempModel temperature;
@@ -8,7 +8,8 @@ class DailyForecast {
   });
 
   factory DailyForecast.fromJson(Map<String, dynamic> json) => DailyForecast(
-        temperature: ForecastTempModel.fromJson(json["Temperature"]),
+        temperature: ForecastTempModel.fromJson(
+            json["Temperature"] as Map<String, dynamic>),
       );
 
   Map<String, dynamic> toJson() => {

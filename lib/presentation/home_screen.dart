@@ -6,8 +6,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:myweatherapp/core/api_requests.dart';
 import 'package:myweatherapp/models/fivedays_main_forecast_model.dart';
-import 'package:myweatherapp/models/tempMainModel.dart';
-import 'package:myweatherapp/models/weatherMainModel.dart';
+import 'package:myweatherapp/models/temp_main_model.dart';
+import 'package:myweatherapp/models/weather_main_model.dart';
 import 'package:myweatherapp/widgets/custom_searchbar.dart';
 import 'package:myweatherapp/widgets/get_lottie.dart';
 import 'package:myweatherapp/widgets/homescreen_data_card.dart';
@@ -59,6 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
       tempDataType = TempMainModel.fromJson(mainTemp);
       fiveDaysForecast = FiveDaysMainForecastModel.fromJson(forecastData);
     } else {
+      if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text("Oops! Something went wrong"),
