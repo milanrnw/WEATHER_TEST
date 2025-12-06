@@ -2,54 +2,59 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 
-class HourlyForecastCard extends StatefulWidget {
-  const HourlyForecastCard({super.key});
+class HourlyForecastCard extends StatelessWidget {
+  final String value;
+  final String label;
+  final String? iconPath;
+  final bool isLottie;
 
-  @override
-  State<HourlyForecastCard> createState() => _HourlyForecastCardState();
-}
+  const HourlyForecastCard({
+    super.key,
+    required this.value,
+    required this.label,
+    this.iconPath,
+    this.isLottie = true,
+  });
 
-class _HourlyForecastCardState extends State<HourlyForecastCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 60.w,
-      height: 110.h,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment:
+            MainAxisAlignment.center, // Center content vertically
         children: [
-          Row(
-            children: [
-              Column(
-                children: [
-                  Lottie.asset("assets/gif/lottie_cloudy.json",
-                      width: 52, height: 40),
-                  Text(
-                    "25°",
-                    style: TextStyle(
-                      fontFamily: "MadimiOne",
-                      fontWeight: FontWeight.w300,
-                      fontSize: 20.sp,
-                      color: Color(0XFF3C4042),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 4,
-                  ),
-                  Text(
-                    "8 am",
-                    style: TextStyle(
-                      fontFamily: "MadimiOne",
-                      fontWeight: FontWeight.w300,
-                      fontSize: 14.sp,
-                      color: Color(0XFF3C4042).withValues(alpha: 0.5),
-                    ),
-                  ),
-                ],
+          if (iconPath != null)
+            isLottie
+                ? Lottie.asset(iconPath!, width: 52, height: 40)
+                : Image.asset(iconPath!, width: 40, height: 40),
+          if (iconPath == null) SizedBox(height: 40),
+          SizedBox(height: 8), // consistent spacing
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+              value,
+              style: TextStyle(
+                fontFamily: "MadimiOne",
+                fontWeight: FontWeight.w300,
+                fontSize: 18.sp,
+                color: const Color(0XFF3C4042),
               ),
-              
-            ],
-          )
+            ),
+          ),
+          SizedBox(
+            height: 4,
+          ),
+          Text(
+            label,
+            style: TextStyle(
+              fontFamily: "MadimiOne",
+              fontWeight: FontWeight.w300,
+              fontSize: 14.sp,
+              color: const Color(0XFF3C4042).withValues(alpha: 0.5),
+            ),
+          ),
         ],
       ),
     );

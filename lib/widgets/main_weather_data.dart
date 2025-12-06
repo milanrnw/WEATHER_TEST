@@ -20,10 +20,10 @@ class MainWeatherData extends StatelessWidget {
         ),
         children: [
           TextSpan(
-            text: weatherTemp,
+            text: "${weatherTemp}°C",
             style: TextStyle(
               fontFamily: "MadimiOne",
-              fontWeight: FontWeight.normal,
+              fontWeight: FontWeight.w300,
               fontSize: 32.sp,
               color: Color(0XFF3C4042),
             ),

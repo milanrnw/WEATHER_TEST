@@ -38,9 +38,10 @@ dependencies:
   lottie: ^3.3.1
   google_fonts: ^6.2.1
   flutter_svg: ^2.2.0
-  flutter_inset_box_shadow: ^1.0.8
-  flutter_dotenv: ^5.2.1
+  flutter_inset_shadow: ^2.0.3
+  flutter_dotenv: ^6.0.0
   http: ^1.4.0
+  intl: ^0.20.2
 
 dev_dependencies:
   flutter_test:
@@ -51,7 +52,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^5.0.0
+  flutter_lints: ^6.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -78,8 +79,12 @@ flutter:
     - assets/gif/lottie_cloudy.json
     - assets/gif/lottie_rainy.json
     - assets/gif/lottie_thunder.json
+    - assets/gif/lottie_snowy.json
+    - assets/gif/lottie_drizzle.json
+    - assets/gif/lottie_wind_speed.json
     - assets/svgs/glass.svg
     - assets/svgs/swipe_menu.svg
+    - assets/screenshots/preview.png
     - .env
 
   # An image asset can refer to one or more resolution-specific "variants", see

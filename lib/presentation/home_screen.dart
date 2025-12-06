@@ -5,9 +5,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:myweatherapp/core/api_requests.dart';
+import 'package:myweatherapp/models/fivedays_main_forecast_model.dart';
 import 'package:myweatherapp/models/tempMainModel.dart';
 import 'package:myweatherapp/models/weatherMainModel.dart';
 import 'package:myweatherapp/widgets/custom_searchbar.dart';
+import 'package:myweatherapp/widgets/get_lottie.dart';
 import 'package:myweatherapp/widgets/homescreen_data_card.dart';
 import 'package:myweatherapp/widgets/main_weather_data.dart';
 import 'package:http/http.dart' as http;
@@ -24,6 +26,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   WeatherMainModel? weatherDataType;
   TempMainModel? tempDataType;
+  FiveDaysMainForecastModel? fiveDaysForecast;
 
   String cityName = "Delhi";
   bool isLoading = false;
@@ -33,36 +36,33 @@ class _HomeScreenState extends State<HomeScreen> {
       isLoading = true;
     });
 
-    try {
-      final response = await http.get(
-        Uri.parse(ApiRequests.currentConditionUrl(city: cityName)),
-      );
+    final currentResponse = await http.get(
+      Uri.parse(ApiRequests.currentConditionUrl(city: cityName)),
+    );
 
-      if (response.statusCode == 200) {
-        final Map<String, dynamic> data = json.decode(response.body);
+    final forecastResponse = await http.get(
+      Uri.parse(ApiRequests.fiveDaysForecastUrl(city: cityName)),
+    );
 
-        // ✅ Extract nested sections
-        final weatherList = data['weather'] as List<dynamic>;
-        final mainWeather = weatherList.isNotEmpty ? weatherList[0] : {};
-        final mainTemp = data['main'] ?? {};
+    if (currentResponse.statusCode == 200 &&
+        forecastResponse.statusCode == 200) {
+      final Map<String, dynamic> currentData =
+          json.decode(currentResponse.body);
+      final Map<String, dynamic> forecastData =
+          json.decode(forecastResponse.body);
 
-        // ✅ Parse only relevant parts
-        weatherDataType = WeatherMainModel.fromJson(mainWeather);
-        tempDataType = TempMainModel.fromJson(mainTemp);
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text("Oops! Something went wrong"),
-            backgroundColor: Colors.redAccent,
-          ),
-        );
-      }
-    } catch (e) {
-      print("ERROR: $e");
+      final weatherList = currentData['weather'] as List<dynamic>;
+      final mainWeather = weatherList.isNotEmpty ? weatherList[0] : {};
+      final mainTemp = currentData['main'] ?? {};
+
+      weatherDataType = WeatherMainModel.fromJson(mainWeather);
+      tempDataType = TempMainModel.fromJson(mainTemp);
+      fiveDaysForecast = FiveDaysMainForecastModel.fromJson(forecastData);
+    } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text("Check your internet or API key"),
-          backgroundColor: Colors.red,
+          content: Text("Oops! Something went wrong"),
+          backgroundColor: Colors.redAccent,
         ),
       );
     }
@@ -83,7 +83,10 @@ class _HomeScreenState extends State<HomeScreen> {
     final topPadding = MediaQuery.of(context).padding.top;
     SizedBox(height: topPadding);
 
-    if (isLoading || weatherDataType == null || tempDataType == null) {
+    if (isLoading ||
+        weatherDataType == null ||
+        tempDataType == null ||
+        fiveDaysForecast == null) {
       return const Scaffold(
         backgroundColor: Color(0XFFE7EAEF),
         body: Center(
@@ -123,8 +126,12 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(
               height: 56,
             ),
-            Lottie.asset("assets/gif/lottie_sunny.json",
-                width: 410.w, height: 410.h, fit: BoxFit.cover),
+            Lottie.asset(
+              getLottieAsset(weatherDataType!.main),
+              width: 410.w,
+              height: 410.h,
+              fit: BoxFit.cover,
+            ),
             SizedBox(
               height: 64,
             ),
@@ -135,7 +142,7 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(
               height: 18,
             ),
-            HomescreenDataCard(),
+            HomescreenDataCard(fiveDaysForecast: fiveDaysForecast!),
             SizedBox(
               height: 14,
             ),

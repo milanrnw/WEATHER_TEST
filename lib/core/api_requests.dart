@@ -11,4 +11,10 @@ class ApiRequests {
   }) {
     return "${baseUrl}weather?q=$city&appid=$apiKey&units=metric";
   }
+
+  static String fiveDaysForecastUrl({
+    required String city,
+  }) {
+    return "${baseUrl}forecast?q=$city&appid=$apiKey&units=metric";
+  }
 }
