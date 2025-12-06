@@ -12,6 +12,12 @@ A beautiful and responsive Flutter weather application that provides real-time w
 - **Responsive Design**: Built with `flutter_screenutil` to look great on all device sizes.
 - **Custom UI**: Glassmorphism effects and custom fonts (MadimiOne, Oxanium).
 
+## Design Workflow 🎨
+
+This project followed a structured design-to-development process:
+1.  **Prototyping**: The entire UI/UX was first designed and prototyped in **Figma** to ensure a seamless user experience.
+2.  **Implementation**: The design was then pixel-perfectly translated into **Flutter** code.
+
 ## Screenshots 📸
 
 <p align="center">
